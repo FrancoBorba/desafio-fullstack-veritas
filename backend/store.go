@@ -82,7 +82,7 @@ func (s *inMemoryTaskStore) GetAllTasks() ([]*Task, error){
 
 }
 
-func (s *inMemoryTaskStore) GetTaksById(id string)  ( *Task, error){
+func (s *inMemoryTaskStore) GetTask(id string)  ( *Task, error){
 
 	s.mutex.RLock();
 	defer s.mutex.RUnlock();
@@ -110,6 +110,10 @@ func (s *inMemoryTaskStore) UpdateTask(id string , payload UpdateTaskPayload) (*
 
 	if payload.Title != nil{
 		task.Title = *payload.Title
+	}
+
+	if payload.Description != nil {
+		task.Description = *payload.Description
 	}
 
 	if payload.Priority != nil {
