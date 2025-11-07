@@ -22,14 +22,20 @@ func NewTaskHandler(store TaskStore) *TaskHandler {
 	}
 }
 
+// @Summary      Cria uma nova tarefa
+// @Description  Adiciona uma nova tarefa ao kanban
+// @Tags         tasks
+// @Accept       json
+// @Produce      json
+// @Param        task  body      CreateTaskPayload  true  "Payload da Tarefa"
+// @Success      201  {object}  Task
+// @Failure      400  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /tasks [post]
 func (h *TaskHandler) CreateTask( w http.ResponseWriter , r *http.Request){
 
-	// Creates a pattern to analyze request data
-	var payload struct {
-		Title       string `json:"title"`
-		Description string `json:"description"`
-		Prioridade  string `json:"prioridade"`	
-	}
+	// Take the json and transforms in UpdateTaskPayload
+	var payload CreateTaskPayload 
 
 	// If the pattern is not equal, it throws an exception
 	if erro := json.NewDecoder(r.Body).Decode(&payload); erro != nil {
@@ -37,19 +43,14 @@ func (h *TaskHandler) CreateTask( w http.ResponseWriter , r *http.Request){
 		return
 	}
 
-	// Validate datas
-	tempTask := Task{
-		Title: payload.Title,
-		Status: "A Fazer",
-		Description: payload.Description,
-	}
 
-	if erro := h.validator.Struct(tempTask) ; erro != nil {
+
+	if erro := h.validator.Struct(payload) ; erro != nil {
 		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "Validation fail: " + erro.Error()})
 		return
 	}
 
-	task , erro := h.store.CreateTask(payload.Title, payload.Description, payload.Prioridade)
+	task , erro := h.store.CreateTask(payload.Title, payload.Description, payload.Priority)
 	if erro != nil {
 		writeJSON(w, http.StatusInternalServerError, map[string]string{"erro": "Fail in create task"})
 		return
@@ -58,7 +59,14 @@ func (h *TaskHandler) CreateTask( w http.ResponseWriter , r *http.Request){
 	writeJSON(w, http.StatusCreated, task)
 }
 
-func (h *TaskHandler) GetAllTasks ( w http.ResponseWriter , r *http.Request){
+// @Summary      Lista todas as tarefas
+// @Description  Retorna uma lista de todas as tarefas do kanban
+// @Tags         tasks
+// @Produce      json
+// @Success      200  {array}   Task
+// @Failure      500  {object}  map[string]string
+// @Router       /tasks [get]
+func (h *TaskHandler) GetAllTasks( w http.ResponseWriter , r *http.Request){
 
 	tasks , erro := h.store.GetAllTasks();
 	if erro != nil {
@@ -70,6 +78,15 @@ func (h *TaskHandler) GetAllTasks ( w http.ResponseWriter , r *http.Request){
 	
 }
 
+// @Summary      Busca uma tarefa por ID
+// @Description  Retorna uma única tarefa dado o seu ID
+// @Tags         tasks
+// @Produce      json
+// @Param        id   path      string  true  "ID da Tarefa"
+// @Success      200  {object}  Task
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Router       /tasks/{id} [get]
 func (h *TaskHandler) GetTaskById( w http.ResponseWriter , r *http.Request){
 
 	//Take the variants of the path
@@ -91,6 +108,17 @@ func (h *TaskHandler) GetTaskById( w http.ResponseWriter , r *http.Request){
 	writeJSON(w , http.StatusOK , task)
 }
 
+// @Summary      Atualiza uma tarefa existente
+// @Description  Atualiza os campos de uma tarefa (título, descrição, prioridade, status)
+// @Tags         tasks
+// @Accept       json
+// @Produce      json
+// @Param        id    path      string             true  "ID da Tarefa"
+// @Param        task  body      UpdateTaskPayload  true  "Campos da Tarefa para Atualizar"
+// @Success      200  {object}  Task
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Router       /tasks/{id} [put]
 func (h *TaskHandler) UpdateTask( w http.ResponseWriter , r *http.Request){
 
 	//Take the variable of the path
@@ -127,6 +155,15 @@ func (h *TaskHandler) UpdateTask( w http.ResponseWriter , r *http.Request){
 
 }
 
+// @Summary      Deleta uma tarefa
+// @Description  Remove uma tarefa do kanban pelo seu ID
+// @Tags         tasks
+// @Produce      json
+// @Param        id   path      string  true  "ID da Tarefa"
+// @Success      204  "No Content"
+// @Failure      400  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Router       /tasks/{id} [delete]
 func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	
 	// Take the if of the path

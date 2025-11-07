@@ -7,8 +7,17 @@ import (
 	"github.com/gorilla/mux" 
 
 	"github.com/gorilla/handlers"
+	httpSwagger "github.com/swaggo/http-swagger"
+	_ "kanbantasks/backend/docs"
+
 )
 
+ // @title           API Kanban de Tarefas (Veritas)
+ // @version         1.0
+ // @description     API para o desafio fullstack da Veritas (React + Go).
+ // @termsOfService  http: 
+ // @host            localhost:8080
+ // @BasePath
 func main() {
 	
 
@@ -18,7 +27,7 @@ func main() {
 	// We inject our BD into our Controller
 	taskHandler := NewTaskHandler(store);
 
-	// --- 2. Configuração do Roteador (O 'web.xml' ou '@RequestMapping') ---
+
 
 	// Create the routes
 	router := mux.NewRouter()
@@ -26,6 +35,8 @@ func main() {
 
 	// Create the subrouter for our endpoint
 	api := router.PathPrefix("/").Subrouter()
+
+	api.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
 
 	api.HandleFunc("/tasks", taskHandler.GetAllTasks).Methods(http.MethodGet)   // GET /tasks

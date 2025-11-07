@@ -1,0 +1,228 @@
+definitions:
+  main.CreateTaskPayload:
+    properties:
+      description:
+        type: string
+      priority:
+        enum:
+        - Alta
+        - Média
+        - Baixa
+        type: string
+      title:
+        minLength: 3
+        type: string
+    required:
+    - title
+    type: object
+  main.Task:
+    properties:
+      createdAt:
+        type: string
+      description:
+        description: omitempty = If it's empty, it won't appear in the JSON.
+        type: string
+      id:
+        type: string
+      priority:
+        enum:
+        - Alta
+        - Média
+        - Baixa
+        type: string
+      status:
+        enum:
+        - A Fazer
+        - Em Progresso
+        - Concluídas
+        type: string
+      title:
+        description: The title is required and must be at least 3 characters long.
+        minLength: 3
+        type: string
+      updatedAt:
+        type: string
+    required:
+    - title
+    type: object
+  main.UpdateTaskPayload:
+    properties:
+      description:
+        type: string
+      priority:
+        enum:
+        - Alta
+        - Média
+        - Baixa
+        type: string
+      status:
+        enum:
+        - A Fazer
+        - Em Progresso
+        - Concluídas
+        type: string
+      title:
+        minLength: 3
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API para o desafio fullstack da Veritas (React + Go).
+  termsOfService: 'http:'
+  title: API Kanban de Tarefas (Veritas)
+  version: "1.0"
+paths:
+  /tasks:
+    get:
+      description: Retorna uma lista de todas as tarefas do kanban
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Task'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Lista todas as tarefas
+      tags:
+      - tasks
+    post:
+      consumes:
+      - application/json
+      description: Adiciona uma nova tarefa ao kanban
+      parameters:
+      - description: Payload da Tarefa
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/main.CreateTaskPayload'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Task'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria uma nova tarefa
+      tags:
+      - tasks
+  /tasks/{id}:
+    delete:
+      description: Remove uma tarefa do kanban pelo seu ID
+      parameters:
+      - description: ID da Tarefa
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Deleta uma tarefa
+      tags:
+      - tasks
+    get:
+      description: Retorna uma única tarefa dado o seu ID
+      parameters:
+      - description: ID da Tarefa
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Task'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Busca uma tarefa por ID
+      tags:
+      - tasks
+    put:
+      consumes:
+      - application/json
+      description: Atualiza os campos de uma tarefa (título, descrição, prioridade,
+        status)
+      parameters:
+      - description: ID da Tarefa
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Campos da Tarefa para Atualizar
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/main.UpdateTaskPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Task'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Atualiza uma tarefa existente
+      tags:
+      - tasks
+swagger: "2.0"
