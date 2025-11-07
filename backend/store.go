@@ -10,11 +10,11 @@ import(
 
 // ----- Create the interface ------
 type TaskStore interface{
-	CreateTask(title string , description string) (*Task , error);
+	CreateTask(title string , description string , priority string) (*Task , error);
 	GetTask(id string) (*Task , error);
 	GetAllTasks() ([]*Task ,error);
 	UpdateTask(id string , payload  UpdateTaskPayload) (*Task , error);
-	DeleteTask(id string )(*Task , error);
+	DeleteTask(id string )( error);
 }
 
 // ----- will act like the db -----
@@ -34,7 +34,7 @@ func NewInMemoryTaskRepository() *inMemoryTaskStore{
 }
 
 // ----- Create the services ------
-func (s *inMemoryTaskStore) CreateTask(title string, description string, prioridade string) (*Task, error){
+func (s *inMemoryTaskStore) CreateTask(title string, description string, priority string) (*Task, error){
 
 	s.mutex.Lock();
 
@@ -42,8 +42,8 @@ func (s *inMemoryTaskStore) CreateTask(title string, description string, priorid
 
 	// Setting a default priority
 
-	if (prioridade == ""){
-		prioridade = "Media"
+	if (priority == ""){
+		priority = "Media"
 	}
 
 	now := time.Now();
@@ -53,7 +53,7 @@ func (s *inMemoryTaskStore) CreateTask(title string, description string, priorid
 		ID:          uuid.New().String(), // GenerateID
 		Title:       title,
 		Description: description,
-		Prioridade:  prioridade,
+		Priority:  priority,
 		Status:      status, // Default status
 		CreatedAt:   now,
 		UpdatedAt:   now,
@@ -112,8 +112,8 @@ func (s *inMemoryTaskStore) UpdateTask(id string , payload UpdateTaskPayload) (*
 		task.Title = *payload.Title
 	}
 
-	if payload.Prioridade != nil {
-		task.Prioridade = *payload.Prioridade
+	if payload.Priority != nil {
+		task.Priority = *payload.Priority
 	}
 	if payload.Status != nil {
 		task.Status = *payload.Status

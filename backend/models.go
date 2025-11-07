@@ -7,7 +7,7 @@ type Task struct {
 	ID          string `json:"id"`
 	Title       string `json:"title" validate:"required,min=3"` // The title is required and must be at least 3 characters long.
 	Description string `json:"description,omitempty"`          // omitempty = If it's empty, it won't appear in the JSON.
-	Prioridade  string `json:"prioridade,omitempty"`
+	Priority  string `json:"priority,omitempty"`
 	Status      string `json:"status,omitempty" validate:"omitempty,oneof='A Fazer' 'Em Progresso' 'Concluídas'"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
@@ -17,6 +17,6 @@ type Task struct {
 type UpdateTaskPayload struct {
 	Title       *string `json:"title,omitempty" validate:"omitempty,min=3"`
 	Description *string `json:"description,omitempty"`
-	Prioridade  *string `json:"prioridade,omitempty"`
+	Priority  *string `json:"priority,omitempty"`
 	Status      *string `json:"status,omitempty" validate:"omitempty,oneof='A Fazer' 'Em Progresso' 'Concluídas'"`
 }	
