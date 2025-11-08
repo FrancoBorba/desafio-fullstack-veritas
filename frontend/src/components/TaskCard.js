@@ -1,9 +1,8 @@
 import React from "react";
 import './TaskCard.css'; 
-import { FaUsers, FaRegCommentDots } from 'react-icons/fa';
+import { FaUsers, FaRegCommentDots, FaPencilAlt, FaTrash } from 'react-icons/fa';
 
-
-function TaskCard({task}){
+function TaskCard({ task, onOpenModal, onDeleteTask }){
     
 const prioridadeClass = task.priority ? task.priority.toLowerCase() : '';
 
@@ -35,6 +34,15 @@ return (
           <span className="icon-group">
             <FaRegCommentDots /> 
           </span>
+        </div>
+
+        <div className="footer-right">
+          <button className="card-icon-btn">
+            <FaPencilAlt /> 
+          </button>
+          <button className="card-icon-btn delete-btn">
+            <FaTrash />
+          </button>
         </div>
       </div>
 
