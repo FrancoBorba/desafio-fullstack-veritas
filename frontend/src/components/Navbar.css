@@ -1,0 +1,120 @@
+/* Em frontend/src/components/Navbar.css */
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  background-color: #02141B; 
+  padding: 20px 30px;
+  gap: 40px;
+
+}
+
+/* --- Left side--- */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.navbar-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.navbar-logo {
+  height: 60px;
+  width: 80px;
+}
+.navbar-logo-text {
+  font-size: 36px;
+  font-weight: bold;
+  color: #D4AF78;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.navbar-divider {
+  height: 30px;
+  width: 1px;
+  background-color:#FFFFFF;
+  margin-right: -10px; 
+  opacity: 50%;
+}
+.navbar-divider-arrow {
+  font-size: 18px;
+  color: #FFFFFF;
+}
+.navbar-project-name {
+  font-size: 20px;
+  color: #FFFFFF;
+  opacity: 0.8; 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+} 
+
+/* --- Center --- */
+.navbar-center {
+}
+.nav-tabs {
+  display: flex;
+  background-color: rgba(217, 217, 217, 0.5);
+  border-radius: 30px; 
+  padding: 5px;
+}
+.nav-tab {
+  background: none;
+  border: none;
+  color: #FFFFFF; 
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 5px;
+}
+/* The active board */
+.nav-tab.active {
+  color: #DEC9AA; 
+  font-weight: 700;
+
+}
+
+.nav-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 60%; 
+  height: 2px;
+  background-color: #DEC9AA; 
+  border-radius: 2px;
+}
+
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+  margin-left: auto;
+  margin-right: 50px; 
+}
+
+.nav-btn-icon {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  
+  color: #c9d1d9; 
+  font-size: 26px; 
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.nav-btn-icon:hover {
+  opacity: 1;
+}
+
+.navbar-avatar {
+  font-size: 30px;
+  color: #DEC9AA; 
+}

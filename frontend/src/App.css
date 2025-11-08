@@ -1,20 +1,10 @@
 /* Em frontend/src/App.css */
 .App {
-  text-align: center;
-  background-color: #282c34;
+  background-color: #02141B; 
   min-height: 100vh;
-  color: white;
-  text-align: center;
+  color: #c9d1d9; 
 }
-
-.App-header {
-  padding: 20px;
-  border-bottom: 2px solid #61dafb;
-}
-
-.App-content {
-  padding: 20px;
-}
+  
 
 .kanban-board {
   display: flex; 
