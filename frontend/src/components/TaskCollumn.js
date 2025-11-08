@@ -9,7 +9,7 @@ import { TiPlus } from "react-icons/ti";
 
 
 
-function TaskCollumn({title , tasks , onOpenModal}) {
+function TaskCollumn({title , tasks , onOpenModal , onDeleteTask}) {
     
     return(
       <div className="task-collumn" data-status={title}>
@@ -32,7 +32,7 @@ function TaskCollumn({title , tasks , onOpenModal}) {
       {/* Transforms a list of data into a list of components */}
       <div className="task-list">
       {tasks.map(task => (
-        <TaskCard key={task.id} task={task} />
+        <TaskCard key={task.id} task={task}  onDeleteTask={onDeleteTask}/>
       ))}
     </div>
 

@@ -37,6 +37,21 @@ function App() {
     setTasks(currentTasks => [...currentTasks, novaTarefa]);
   };
 
+  const handleDeleteTask = (taskId) =>{
+    if (!window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+      return; 
+    }
+
+    axios.delete(`${API_URL}/tasks/${taskId}`)
+      .then(
+        () =>{
+          setTasks(currentTasks => currentTasks.filter(task => task.id !== taskId))
+        }
+      ).catch(err => {
+        console.error("Erro ao deletar tarefa:", err);
+      });
+  }
+
   // Search in the api all tasks
   useEffect( () =>{
     const fetchTasks = async () => {
@@ -77,6 +92,7 @@ function App() {
               title={title}
               tasks={tasksForColumn}
               onOpenModal={handleOpenModal}
+              onDeleteTask={handleDeleteTask}
             />
           );
         })}

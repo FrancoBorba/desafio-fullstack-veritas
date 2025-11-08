@@ -40,7 +40,7 @@ return (
           <button className="card-icon-btn">
             <FaPencilAlt /> 
           </button>
-          <button className="card-icon-btn delete-btn">
+          <button className="card-icon-btn delete-btn" onClick={() => onDeleteTask(task.id)}>
             <FaTrash />
           </button>
         </div>
