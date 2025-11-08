@@ -11,7 +11,7 @@ import { TiPlus } from "react-icons/ti";
 function TaskCollumn({title , tasks}) {
     
     return(
-      <div className="task-collumn">
+      <div className="task-collumn" data-status={title}>
         <div className="collumn-header">
 
           {/* Right side of header */}
@@ -34,6 +34,10 @@ function TaskCollumn({title , tasks}) {
         <TaskCard key={task.id} task={task} />
       ))}
     </div>
+
+    <button className="add-task-btn">
+              <TiPlus /> New
+            </button>
       </div>
     )
 }
