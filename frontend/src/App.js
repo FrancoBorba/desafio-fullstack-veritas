@@ -8,13 +8,12 @@ import ActionBar from './components/ActionBar';
 
 // Create fake cards to test and improve the design
 const mockTasks = [
-  { id: 'task-1', title: 'MVP - Backend Go', description: 'Criar endpoints CRUD e Docker.', status: 'Concluídas' },
-  { id: 'task-2', title: 'MVP - Frontend React', description: 'Criar colunas e cards.', status: 'Em Progresso' },
-  { id: 'task-3', title: 'Bônus - Swagger', description: 'Documentar a API.', status: 'Concluídas' },
-  { id: 'task-4', title: 'Bônus - Drag and Drop', description: 'Implementar o bônus do desafio.', status: 'A Fazer' },
-  { id: 'task-5', title: 'Aplicar meu Design', description: 'Usar o UI que criei.', status: 'A Fazer' },
+  { id: 'task-1', title: 'MVP - Backend Go', description: 'Criar endpoints CRUD e Docker.', status: 'Concluídas', prioridade: 'Média' },
+  { id: 'task-2', title: 'MVP - Frontend React', description: 'Criar colunas e cards.', status: 'Em Progresso', prioridade: 'Alta' },
+  { id: 'task-3', title: 'Bônus - Swagger', description: 'Documentar a API.', status: 'Concluídas', prioridade: 'Baixa' },
+  { id: 'task-4', title: 'Bônus - Drag and Drop', description: 'Implementar o bônus do desafio.', status: 'A Fazer', prioridade: 'Alta' },
+  { id: 'task-5', title: 'Aplicar meu Design', description: 'Usar o UI que criei.', status: 'A Fazer', prioridade: 'Média' },
 ];
-
 // The columns with fix name  
 const columnTitles = ['A Fazer', 'Em Progresso', 'Concluídas']; // 
 
