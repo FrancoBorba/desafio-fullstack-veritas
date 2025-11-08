@@ -37,7 +37,7 @@ return (
         </div>
 
         <div className="footer-right">
-          <button className="card-icon-btn">
+          <button className="card-icon-btn" onClick={() => onOpenModal(task)}>
             <FaPencilAlt /> 
           </button>
           <button className="card-icon-btn delete-btn" onClick={() => onDeleteTask(task.id)}>

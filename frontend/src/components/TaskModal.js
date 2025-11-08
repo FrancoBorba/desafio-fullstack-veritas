@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import Modal from 'react-modal';
 import './TaskModal.css'; 
 import axios from 'axios';
 
+const API_URL = 'http://localhost:8080';
 
-function TaskModal({isOpen , onClose, onTaskCreated}){
+function TaskModal({isOpen , onClose, onTaskCreated, onTaskUpdated, taskToEdit}){
 
   // Formulario
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('Baixa'); 
   const [error, setError] = useState(null); 
-
-  const API_URL = 'http://localhost:8080';
 
   const clearForm = () => {
     setTitle('');
@@ -21,43 +20,64 @@ function TaskModal({isOpen , onClose, onTaskCreated}){
     setError(null);
   };
 
+  useEffect(() => {
+    if (taskToEdit) {
+      // If 'taskToEdit' exists, we are in editing
+      setTitle(taskToEdit.title);
+      setDescription(taskToEdit.description || '');
+      setPriority(taskToEdit.priority || 'Baixa');
+    } else {
+      // If 'taskToEdit' is null, we are creating
+     clearForm();
+    }
+    setError(null); 
+  }, [taskToEdit, isOpen]);
+  
+
+
 const handleSubmit = (e) => {
     e.preventDefault(); 
-
     if (!title) {
       setError('O título é obrigatório.');
       return;
     }
 
+    // Body
+    const taskPayload = {
+      title: title,
+      description: description,
+      priority: priority
+    };
 
-
-    // The"Body"
-     const novaTarefa = {
-       title: title,
-       description: description,
-       priority: priority
-     };
-
-     setError(null); // Clean the error por a paste error
+    setError(null); 
     
-     axios.post(`${API_URL}/tasks`, novaTarefa)
-      .then(response => {
-        onTaskCreated(response.data); 
-        clearForm(); 
-        onClose(); 
-      })
-      .catch(err => {
-        console.error(err);
-        setError("Não foi possível criar a tarefa.");
-      });
-    
+    if (taskToEdit) {
+      // ---  PUT ---
+      axios.put(`${API_URL}/tasks/${taskToEdit.id}`, taskPayload)
+        .then(response => {
+          onTaskUpdated(response.data);
+          onClose(); 
+        })
+        .catch(err => {
+          console.error(err);
+          setError("Falha ao atualizar a tarefa.");
+        });
 
+    } else {
+      // --- POST ---
+      axios.post(`${API_URL}/tasks`, taskPayload)
+        .then(response => {
+          onTaskCreated(response.data); 
+          onClose(); 
+        })
+        .catch(err => {
+          console.error(err);
+          setError("Não foi possível criar a tarefa.");
+        });
+    }
   };
 
-  const handleClose = () => {
-    clearForm();
-    onClose();
-  };
+
   
   return (
     <Modal
@@ -68,7 +88,7 @@ const handleSubmit = (e) => {
       appElement={document.getElementById('root')} 
     >
       <form onSubmit={handleSubmit}>
-        <h2>Nova Tarefa</h2>
+        <h2>{taskToEdit ? 'Editar Tarefa' : 'Nova Tarefa'}</h2>
                 <div className="form-group">
           <label htmlFor="title">Título <span>(Obrigatório)</span></label>
           <input

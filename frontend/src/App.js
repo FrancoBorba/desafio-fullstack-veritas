@@ -18,7 +18,7 @@ const API_URL = 'http://localhost:8080';
 function App() {
 
   //Saves task cards coming from the back
-  const [tasks, setTasks] = useState();
+  const [tasks, setTasks] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,14 +27,32 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
+  const [taskToEdit, setTaskToEdit] = useState(null);
+
   // Opened
-  const handleOpenModal = () => setIsModalOpen(true);
+  const handleOpenModal = (task = null) => {
+    setTaskToEdit(task); 
+    setIsModalOpen(true); 
+  };
   
   // Closed
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTaskToEdit(null); 
+  };
 
+  // Open Modal to a post
   const handleTaskCreated = (novaTarefa) => {
     setTasks(currentTasks => [...currentTasks, novaTarefa]);
+  };
+
+  // Open Modal to a update
+  const handleTaskUpdated = (updatedTask) => {
+    setTasks(currentTasks => 
+      currentTasks.map(task => 
+        task.id === updatedTask.id ? updatedTask : task
+      )
+    );
   };
 
   const handleDeleteTask = (taskId) =>{
@@ -109,6 +127,8 @@ function App() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onTaskCreated={handleTaskCreated}
+        onTaskUpdated={handleTaskUpdated} 
+        taskToEdit={taskToEdit}
       />
     </div>
   );

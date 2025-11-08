@@ -22,7 +22,7 @@ function TaskCollumn({title , tasks , onOpenModal , onDeleteTask}) {
         </div >
           {/* Left side of header */}
         <div className="collumn-buttons">
-          <button className="collumn-btn" onClick={onOpenModal} > <TiPlus /></button> {/*Now open the pop up */}
+          <button className="collumn-btn" onClick={() => onOpenModal()} > <TiPlus /></button> {/*Now open the pop up */}
            <button className="collumn-btn"><BsThreeDotsVertical /></button>
         </div>
         </div>
@@ -32,7 +32,11 @@ function TaskCollumn({title , tasks , onOpenModal , onDeleteTask}) {
       {/* Transforms a list of data into a list of components */}
       <div className="task-list">
       {tasks.map(task => (
-        <TaskCard key={task.id} task={task}  onDeleteTask={onDeleteTask}/>
+        <TaskCard
+         key={task.id} 
+         task={task}
+         onOpenModal={onOpenModal} 
+         onDeleteTask={onDeleteTask} />
       ))}
     </div>
 
