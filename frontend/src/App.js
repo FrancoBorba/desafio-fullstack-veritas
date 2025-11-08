@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import './App.css';
 import TaskCollumn from './components/TaskCollumn'; 
 import Navbar from './components/Navbar'; 
+import ActionBar from './components/ActionBar';
 
 // Create fake cards to test and improve the design
 const mockTasks = [
@@ -26,6 +27,7 @@ function App() {
 
 
       <Navbar></Navbar>
+      <ActionBar></ActionBar>
  
       <main className="kanban-board">
 

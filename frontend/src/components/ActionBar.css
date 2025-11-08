@@ -1,0 +1,88 @@
+/* Em frontend/src/components/ActionBar.css */
+
+.action-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px; 
+  background-color: #02141B; 
+  color: #c9d1d9;
+}
+
+/* --- Left side --- */
+.action-bar-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #FFFFFF; 
+  margin-left: 50px;
+}
+.action-bar-search input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 18px;
+}
+.action-bar-search input::placeholder {
+  color: #8b949e;
+}
+.action-bar-icon {
+  font-size: 16px;
+}
+
+/* --- Right side --- */
+.action-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.action-btn-primary {
+  background-color: #D9D9D9; 
+  color: #02141B; 
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.action-btn-primary:hover {
+  background-color: #FFFFFF;
+}
+
+/* Botões "Sort" e "Filter" */
+.action-btn-text {
+  background: none;
+  border: none;
+  color: #8b949e;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.action-btn-text:hover {
+  color: #FFFFFF;
+}
+.action-bar-icon-small {
+  font-size: 14px;
+}
+
+/* Botão "..." */
+.action-btn-icon {
+  background: none;
+  border: none;
+  color: #8b949e;
+  font-size: 18px;
+  cursor: pointer;
+
+}
+.action-btn-icon:hover {
+  color: #FFFFFF;
+}
