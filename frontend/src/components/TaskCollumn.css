@@ -11,17 +11,17 @@
   border-top-style: solid;
 }
 
-/*  "To Do" */
+
 .task-collumn[data-status="A Fazer"] {
-  border-top-color: #E100FE; /* Rosa */
+  border-top-color: #E100FE; 
 }
-/* Cor "Em Progresso" */
+
 .task-collumn[data-status="Em Progresso"] {
-  border-top-color: #FF8A00; /* Laranja */
+  border-top-color: #FF8A00; 
 }
-/* Cor "Concluídas" */
+
 .task-collumn[data-status="Concluídas"] {
-  border-top-color: #00E096; /* Verde */
+  border-top-color: #00E096; 
 }
 
 .collumn-header {

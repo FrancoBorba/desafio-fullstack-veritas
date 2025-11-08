@@ -5,16 +5,16 @@ import { FaUsers, FaRegCommentDots } from 'react-icons/fa';
 
 function TaskCard({task}){
     
-    const prioridadeClass = task.prioridade ? task.prioridade.toLowerCase() : '';
+const prioridadeClass = task.priority ? task.priority.toLowerCase() : '';
 
 return (
     <div className="task-card">
       
       {/* ---  THE PRIORITY TAG --- */}
-      {task.prioridade && (
+      {task.priority && (
         <div className="card-header">
           <span className={`task-priority ${prioridadeClass}`}>
-            {task.prioridade.toUpperCase()}
+            {task.priority.toUpperCase()}
           </span>
         </div>
       )}

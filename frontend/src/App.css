@@ -14,3 +14,15 @@
   gap: 100px; 
   align-items: flex-start;
 }
+
+.loading-message,
+.error-message {
+  padding: 50px;
+  font-size: 20px;
+  text-align: center;
+  color: #8B949E;
+}
+
+.error-message {
+  color: #E53E3E;
+}

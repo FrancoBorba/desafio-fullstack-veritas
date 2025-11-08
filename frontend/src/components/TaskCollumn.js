@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskCard from './TaskCard'; 
 import './TaskCollumn.css';
+import Modal from 'react-modal';
 
 
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -8,7 +9,7 @@ import { TiPlus } from "react-icons/ti";
 
 
 
-function TaskCollumn({title , tasks}) {
+function TaskCollumn({title , tasks , onOpenModal}) {
     
     return(
       <div className="task-collumn" data-status={title}>
@@ -21,7 +22,7 @@ function TaskCollumn({title , tasks}) {
         </div >
           {/* Left side of header */}
         <div className="collumn-buttons">
-          <button className="collumn-btn"> <TiPlus /></button>
+          <button className="collumn-btn" onClick={onOpenModal} > <TiPlus /></button> {/*Now open the pop up */}
            <button className="collumn-btn"><BsThreeDotsVertical /></button>
         </div>
         </div>
