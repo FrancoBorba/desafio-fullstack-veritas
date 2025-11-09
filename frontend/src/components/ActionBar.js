@@ -4,14 +4,19 @@ import './ActionBar.css'; // Vamos criar este CSS em seguida
 import { FaSearch, FaPlus, FaSortAmountDown, FaFilter, FaEllipsisH } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-function ActionBar({ onOpenModal, onFilterChange, onSortChange }) {
+function ActionBar({ onOpenModal, onFilterChange, onSortChange ,searchTerm, onSearchChange }) {
   return (
     <div className="action-bar-container">
       
       {/* --- Left side: search --- */}
-      <div className="action-bar-search">
+      <div className="action-bar-search" >
         <FaSearch className="action-bar-icon" />
-        <input type="text" placeholder="Search" />
+        <input 
+          type="text" 
+          placeholder="Buscar" 
+          value={searchTerm} // O valor vem do App.js
+          onChange={(e) => onSearchChange(e.target.value)} // Envia a mudança para o App.js
+        />
       </div>
 
       {/* --- Right side: Buttons --- */}

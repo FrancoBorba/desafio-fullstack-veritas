@@ -7,13 +7,14 @@ import(
 	"time" 
 	"github.com/google/uuid" // Generate unique id
 	"sort"
+	"strings"
 )
 
 // ----- Create the interface ------
 type TaskStore interface{
 	CreateTask(title string , description string , priority string , status string) (*Task , error);
 	GetTask(id string) (*Task , error);
-	GetAllTasks(filterPriority string, sortOrder string) ([]*Task ,error);
+	GetAllTasks(filterPriority string, sortOrder string , searchTask string) ([]*Task ,error);
 	UpdateTask(id string , payload  UpdateTaskPayload) (*Task , error);
 	DeleteTask(id string )( error);
 }
@@ -69,7 +70,7 @@ func (s *inMemoryTaskStore) CreateTask(title string, description string, priorit
 	return newTask , nil;
 }
 
-func (s *inMemoryTaskStore) GetAllTasks(filterPriority string, sortOrder string) ([]*Task, error){
+func (s *inMemoryTaskStore) GetAllTasks(filterPriority string, sortOrder string , searchTask string) ([]*Task, error){
 
 	// Read lock
 	s.mutex.RLock();
@@ -83,6 +84,16 @@ func (s *inMemoryTaskStore) GetAllTasks(filterPriority string, sortOrder string)
 		allTasks = append(allTasks, task);
 	}
 
+	if searchTask != ""{
+		searchedTasks := make([]*Task , 0)
+		lowerSearch := strings.ToLower(searchTask)
+			for _ , task := range allTasks {
+				if strings.Contains(strings.ToLower(task.Title), lowerSearch) {
+				searchedTasks = append(searchedTasks, task)
+			}
+			}
+			allTasks = searchedTasks
+	}
 	// Apply filter
 	if filterPriority != ""{
 		filteredTasks := make([]*Task , 0)

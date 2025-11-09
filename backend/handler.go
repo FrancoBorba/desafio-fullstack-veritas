@@ -71,8 +71,9 @@ func (h *TaskHandler) GetAllTasks( w http.ResponseWriter , r *http.Request){
 	// Take the query params
 	filterPriority := r.URL.Query().Get("priority")
 	sortOrder := r.URL.Query().Get("sort")
+	searchTask := r.URL.Query().Get("search")
 
-	tasks , erro := h.store.GetAllTasks(filterPriority, sortOrder);
+	tasks , erro := h.store.GetAllTasks(filterPriority, sortOrder , searchTask);
 	if erro != nil {
 		writeJSON(w, http.StatusInternalServerError, map[string]string{"erro": "Fail in get tasks"})
 		return

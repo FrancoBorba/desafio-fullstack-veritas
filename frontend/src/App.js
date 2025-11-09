@@ -40,6 +40,24 @@ function App() {
   const [projectName, setProjectName] = useState("Entrar na veritas");
   const [isEditingName, setIsEditingName] = useState(false);
 
+  // 'searchTerm' what the user is Typing now
+  const [searchTerm, setSearchTerm] = useState('');
+  // 'debouncedSearchTerm' saves the string after the user stops typing
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+  // If the user does not type in 500 ms calls the api
+  useEffect(() => {
+    // Create a timer
+    const timerId = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500); // 500 ms
+
+    // Clean if user type
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [searchTerm]); 
+
   // Opened
   const handleOpenModal = (task = null , status = 'A Fazer') => {
     setTaskToEdit(task); 
@@ -100,6 +118,10 @@ function App() {
     if (sortOrder !== 'Nenhum') {
       params.append('sort', sortOrder);
     }
+
+    if( debouncedSearchTerm){
+      params.append('search' , debouncedSearchTerm)
+    }
     const queryString = params.toString();
 
       // call the endpoint getAllTasks
@@ -121,7 +143,7 @@ function App() {
  
     fetchTasks();
     
-  } ,[filterPriority, sortOrder]);
+  } ,[filterPriority, sortOrder , debouncedSearchTerm]);
 
 
  
@@ -217,6 +239,8 @@ function App() {
       <ActionBar onOpenModal={handleOpenModal}
       onFilterChange={setFilterPriority} 
         onSortChange={setSortOrder}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
       />
       {renderContent()} 
       <TaskModal
