@@ -30,6 +30,10 @@ function App() {
 
   const [taskToEdit, setTaskToEdit] = useState(null);
 
+  // Filters  
+  const [filterPriority, setFilterPriority] = useState('Todas'); // 'Todas', 'Alta', 'Média', 'Baixa'
+  const [sortOrder, setSortOrder] = useState('Nenhum'); // 'Nenhum', 'priority_desc', 'priority_asc'
+
   // Opened
   const handleOpenModal = (task = null) => {
     setTaskToEdit(task); 
@@ -44,16 +48,19 @@ function App() {
 
   // Open Modal to a post
   const handleTaskCreated = (novaTarefa) => {
-    setTasks(currentTasks => [...currentTasks, novaTarefa]);
+   // setTasks(currentTasks => [...currentTasks, novaTarefa]);
+   fetchTasks();
   };
 
   // Open Modal to a update
   const handleTaskUpdated = (updatedTask) => {
-    setTasks(currentTasks => 
+  /*  setTasks(currentTasks => 
       currentTasks.map(task => 
         task.id === updatedTask.id ? updatedTask : task
       )
-    );
+    ); */
+    fetchTasks();
+
   };
 
   const handleDeleteTask = (taskId) =>{
@@ -69,18 +76,28 @@ function App() {
       ).catch(err => {
         console.error("Erro ao deletar tarefa:", err);
       });
-  }
-
-  // Search in the api all tasks
-  useEffect( () =>{
-    const fetchTasks = async () => {
+  }  
+  
+  const fetchTasks = async () => {
       try{
         setLoading(true)
-        // call the endpoint getAllTasks
-        const response = await axios.get(`${API_URL}/tasks`);
 
+        const params = new URLSearchParams();
+
+        if (filterPriority !== 'Todas') {
+      params.append('priority', filterPriority);
+    }
+    if (sortOrder !== 'Nenhum') {
+      params.append('sort', sortOrder);
+    }
+    const queryString = params.toString();
+
+      // call the endpoint getAllTasks
+      axios.get(`${API_URL}/tasks?${queryString}`)
+      .then(response => {
         setTasks(response.data || []); 
         setError(null);
+      })
       }catch (err) {
         console.error("Erro ao buscar tarefas:", err);
         setError("Não foi possível carregar as tarefas."); 
@@ -88,9 +105,16 @@ function App() {
         setLoading(false); 
       }
     };
+
+  // Search in the api all tasks
+  useEffect( () =>{
+ 
     fetchTasks();
     
-  } , []);
+  } ,[filterPriority, sortOrder]);
+
+
+ 
 
   const renderContent = () => {
     if (loading) {
@@ -127,15 +151,17 @@ function App() {
 
     //If you dont have a target, it returns
     if(!destination){
-      return
+      return;
     }
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
 
     const task = tasks.find(t => t.id === draggableId);
     const newStatus = destination.droppableId;
 
-    if (task.status !== newStatus) {
-      
+    if (destination.droppableId !== source.droppableId) {
+      const newStatus = destination.droppableId;
       const updatePayload = {
         title: task.title,
         description: task.description,
@@ -143,21 +169,29 @@ function App() {
         status: newStatus 
       };
 
- 
       const updatedTasks = tasks.map(t => 
         t.id === draggableId ? { ...t, status: newStatus } : t
       );
       setTasks(updatedTasks); 
 
-      // Chamada de API
+      // Call api
       axios.put(`${API_URL}/tasks/${draggableId}`, updatePayload)
         .then(response => {
-          handleTaskUpdated(response.data);
+          fetchTasks();
         })
         .catch(err => {
           console.error("Erro ao atualizar status:", err);
-          setTasks(tasks); // Reverte a mudança
+          fetchTasks(); 
         });
+    } else {
+    //Internal reorganization
+      const tasksInThisColumn = tasks.filter(t => t.status === source.droppableId);
+      const otherTasks = tasks.filter(t => t.status !== source.droppableId);
+      
+      const [reorderedItem] = tasksInThisColumn.splice(source.index, 1);
+      tasksInThisColumn.splice(destination.index, 0, reorderedItem);
+
+      setTasks([...otherTasks, ...tasksInThisColumn]);
     }
   }
 
@@ -165,7 +199,10 @@ function App() {
   return (
     <div className="App">
       <Navbar /> 
-      <ActionBar onOpenModal={handleOpenModal} />
+      <ActionBar onOpenModal={handleOpenModal}
+      onFilterChange={setFilterPriority} 
+        onSortChange={setSortOrder}
+      />
       {renderContent()} 
       <TaskModal
         isOpen={isModalOpen}

@@ -86,3 +86,30 @@
 .action-btn-icon:hover {
   color: #FFFFFF;
 }
+
+.action-select-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8b949e;
+}
+
+.action-select {
+  background: none;
+  border: none;
+  color: #8b949e;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  outline: none;
+}
+.action-select:hover {
+  color: #FFFFFF;
+}
+
+
+.action-select option {
+  background: #30363d;
+  color: #FFFFFF;
+  border: none;
+}

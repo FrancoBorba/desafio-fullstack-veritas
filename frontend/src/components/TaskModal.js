@@ -42,6 +42,11 @@ const handleSubmit = (e) => {
       return;
     }
 
+    if (title.length < 3) {
+    setError('O título deve ter pelo menos 3 caracteres.');
+    return;
+  }
+
     // Body
     const taskPayload = {
       title: title,
