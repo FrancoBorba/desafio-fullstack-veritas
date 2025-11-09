@@ -101,18 +101,6 @@
 }
 
 
-.task-collumn[data-status="A Fazer"] .add-task-btn:hover {
-  color: #E100FE; 
-}
-
-.task-collumn[data-status="Em Progresso"] .add-task-btn:hover {
-  color: #FF8A00;
-}
-
-.task-collumn[data-status="Concluídas"] .add-task-btn:hover {
-  color: #00E096; 
-}
-
 .task-list.dragging-over {
   background-color: #E6F7FF;
 }

@@ -14,33 +14,38 @@ function ActionBar({ onOpenModal, onFilterChange, onSortChange ,searchTerm, onSe
         <input 
           type="text" 
           placeholder="Buscar" 
-          value={searchTerm} // O valor vem do App.js
-          onChange={(e) => onSearchChange(e.target.value)} // Envia a mudança para o App.js
+          value={searchTerm} 
+          onChange={(e) => onSearchChange(e.target.value)}
         />
       </div>
 
       {/* --- Right side: Buttons --- */}
-      <div className="action-bar-right">
-        <button className="action-btn-primary" >
+      <div className="action-bar-right" >
+        <button className="action-btn-primary" disabled title='Não implementado'>
           <FaPlus /> Novo quadro
         </button>
         
-        <button className="action-btn-text">
-          <FaSortAmountDown className="action-bar-icon-small" /> Ordenar
+     <label htmlFor="sort-select" className="action-group-label">
+          <FaSortAmountDown className="action-bar-icon-small" />
+          <span className="action-label">Ordenar</span>
+          
           <select 
+            id="sort-select"
             className="action-select" 
             onChange={(e) => onSortChange(e.target.value)} 
           >
             <option value="Nenhum">Nenhum</option>
             <option value="priority_desc">Prioridade (Alta-Baixa)</option>
             <option value="priority_asc">Prioridade (Baixa-Alta)</option>
-
           </select>
-        </button>
+        </label>
 
-        <button className="action-btn-text">
-          <FaFilter className="action-bar-icon-small" /> Filtrar
+        <label htmlFor="filter-select" className="action-group-label">
+          <FaFilter className="action-bar-icon-small" />
+          <span className="action-label">Filtrar</span>
+
           <select 
+            id="filter-select"
             className="action-select" 
             onChange={(e) => onFilterChange(e.target.value)} 
           >
@@ -49,7 +54,7 @@ function ActionBar({ onOpenModal, onFilterChange, onSortChange ,searchTerm, onSe
             <option value="Média">Prioridade: Média</option>
             <option value="Baixa">Prioridade: Baixa</option>
           </select>
-        </button>
+        </label>
         
         <button className="action-btn-icon">
             <BsThreeDotsVertical />

@@ -1,5 +1,3 @@
-/* Em frontend/src/components/ActionBar.css */
-
 .action-bar-container {
   display: flex;
   justify-content: space-between;
@@ -16,6 +14,12 @@
   gap: 10px;
   color: #FFFFFF; 
   margin-left: 50px;
+  border: none;
+  border-bottom: 1px solid #30363d;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding-bottom: 4px;
 }
 .action-bar-search input {
   background: none;
@@ -32,6 +36,7 @@
 }
 
 /* --- Right side --- */
+
 .action-bar-right {
   display: flex;
   align-items: center;
@@ -52,11 +57,11 @@
   gap: 6px;
   font-size: 14px;
 }
+
 .action-btn-primary:hover {
   background-color: #FFFFFF;
 }
 
-/* Botões "Sort" e "Filter" */
 .action-btn-text {
   background: none;
   border: none;
@@ -70,11 +75,42 @@
 .action-btn-text:hover {
   color: #FFFFFF;
 }
+
+.action-btn-primary:disabled {
+  background-color: #30363d; 
+  color: #8b949e; 
+  opacity: 0.7;
+  cursor: not-allowed; 
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8b949e;
+}
+.action-label-clickable {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer; /* A "mãozinha" */
+  transition: color 0.2s;
+}
+.action-label-clickable:hover {
+  color: #FFFFFF;
+}
+.action-label {
+  font-size: 14px;
+  font-weight: bold;
+}
 .action-bar-icon-small {
   font-size: 14px;
 }
 
-/* Botão "..." */
+.action-bar-icon-small {
+  font-size: 14px;
+}
+
 .action-btn-icon {
   background: none;
   border: none;
@@ -113,3 +149,4 @@
   color: #FFFFFF;
   border: none;
 }
+
