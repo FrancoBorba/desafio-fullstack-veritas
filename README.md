@@ -2,7 +2,7 @@
 
 Este projeto é uma solução para o Desafio Fullstack da Veritas Consultoria, implementando um quadro Kanban completo com um backend em **Go** e um frontend em **React**.
 
-A aplicação permite o gerenciamento completo de tarefas (CRUD), incluindo criação, edição, exclusão, e movimentação entre colunas com "Drag and Drop", além de funcionalidades avançadas de filtragem e ordenação por prioridade.
+A aplicação permite o gerenciamento completo de tarefas (CRUD), incluindo criação, edição, exclusão, e movimentação entre colunas com "Drag and Drop", além de funcionalidades  de filtragem , ordenação por prioridade e busca.
 
 
 ---
@@ -86,7 +86,7 @@ Arquitetura Limpa: O backend segue o Padrão Repositório (Repository Pattern). 
 
 Validação Robusta: O backend utiliza a biblioteca go-playground/validator para validar payloads de entrada (DTOs). Regras como required,min=3 (para o título) e oneof (para status e prioridade) garantem a integridade dos dados antes que eles cheguem à lógica de negócios.
 
-Filtragem e Ordenação: A lógica de filtragem e ordenação (por prioridade, data, etc.) é feita inteiramente no backend. O Go recebe Query Params (ex: ?priority=Alta&sort=priority_desc) e faz o trabalho pesado, garantindo que o frontend seja rápido e escalável, mesmo com milhares de tarefas.
+Filtragem e Ordenação: A lógica de filtragem, ordenação e busca (por prioridade, data, etc.) é feita inteiramente no backend. O Go recebe Query Params (ex: ?priority=Alta&sort=priority_desc) e faz o trabalho pesado, garantindo que o frontend seja rápido e escalável, mesmo com milhares de tarefas.
 
 ---
 
@@ -96,9 +96,8 @@ Modularização: A UI foi quebrada em Componentes reutilizáveis (ex: Navbar, Ac
 
 Drag and Drop (Bônus): Foi implementada a funcionalidade de "arrastar e soltar" usando a biblioteca @hello-pangea/dnd. 
 
-O usuário move o card (o estado do React é atualizado instantaneamente).
+O usuário move o card (o estado do React é atualizado instantaneamente) , isso dá uma sensação de performance instantânea para o usuário..
 
-Isso dá uma sensação de performance instantânea para o usuário.
 
 Gerenciamento de Estado: O estado principal (lista de tarefas, filtros, modal) é centralizado no App.js (Componente Pai) e passado para os componentes filhos (ex: TaskCollumn, TaskModal) via props. A comunicação de "filho para pai" é feita através de callbacks (ex: onTaskCreated, onOpenModal).
 
@@ -114,11 +113,11 @@ Reordenação Local: A reordenação de tarefas dentro da mesma coluna (via Drag
 ## 💡 Melhorias Futuras
 O design da aplicação foi intencionalmente inspirado em aplicações mais robustas, pensando em acomodar melhorias futuras:
 
-Atribuir Usuários: Implementar um sistema de autenticação e permitir que tarefas sejam associadas a avatares/usuários específicos (o design do TaskCard já prevê isso).
+Atribuir Usuários: Implementar um sistema de autenticação e permitir que tarefas sejam associadas a avatares/usuários específicos.
 
-Datas e Prazos: Implementar a lógica para DueDate (prazo), permitindo que o TaskCard mostre a estimativa de tempo e o ActionBar filtre por calendarios ou prazos
+Datas e Prazos: Implementar a lógica para prazo, permitindo que o TaskCard mostre a estimativa de tempo e o ActionBar filtre por calendarios ou prazos
 
-Quadros Múltiplos: Implementar a funcionalidade + Novo Quadro (do ActionBar), transformando o backend para suportar múltiplos quadros, cada um com suas próprias colunas customizáveis (ex: "Backlog", "Revisão", etc.).
+Quadros Múltiplos: Implementar a funcionalidade + Novo Quadro, transformando o backend para suportar múltiplos quadros, cada um com suas próprias colunas customizáveis (ex: "Backlog", "Revisão", etc.).
 
 # 🏁 Autor
 
