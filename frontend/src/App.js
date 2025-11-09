@@ -34,9 +34,15 @@ function App() {
   const [filterPriority, setFilterPriority] = useState('Todas'); // 'Todas', 'Alta', 'Média', 'Baixa'
   const [sortOrder, setSortOrder] = useState('Nenhum'); // 'Nenhum', 'priority_desc', 'priority_asc'
 
+  const [modalCreateStatus, setModalCreateStatus] = useState('A Fazer');
+
   // Opened
-  const handleOpenModal = (task = null) => {
+  const handleOpenModal = (task = null , status = 'A Fazer') => {
     setTaskToEdit(task); 
+    if (!task) {
+      // If we are creating defines the status
+      setModalCreateStatus(status);
+    }
     setIsModalOpen(true); 
   };
   
@@ -210,6 +216,7 @@ function App() {
         onTaskCreated={handleTaskCreated}
         onTaskUpdated={handleTaskUpdated} 
         taskToEdit={taskToEdit}
+        modalCreateStatus={modalCreateStatus}
       />
     </div>
   );

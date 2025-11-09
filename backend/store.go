@@ -11,7 +11,7 @@ import(
 
 // ----- Create the interface ------
 type TaskStore interface{
-	CreateTask(title string , description string , priority string) (*Task , error);
+	CreateTask(title string , description string , priority string , status string) (*Task , error);
 	GetTask(id string) (*Task , error);
 	GetAllTasks(filterPriority string, sortOrder string) ([]*Task ,error);
 	UpdateTask(id string , payload  UpdateTaskPayload) (*Task , error);
@@ -35,7 +35,7 @@ func NewInMemoryTaskRepository() *inMemoryTaskStore{
 }
 
 // ----- Create the services ------
-func (s *inMemoryTaskStore) CreateTask(title string, description string, priority string) (*Task, error){
+func (s *inMemoryTaskStore) CreateTask(title string, description string, priority string , status string) (*Task, error){
 
 	s.mutex.Lock();
 
@@ -47,8 +47,12 @@ func (s *inMemoryTaskStore) CreateTask(title string, description string, priorit
 		priority = "Media"
 	}
 
+	if (status == "") {
+        status = "A Fazer" 
+    }
+
 	now := time.Now();
-	status := "A Fazer"
+	
 
 	newTask := &Task{
 		ID:          uuid.New().String(), // GenerateID
@@ -103,6 +107,11 @@ func (s *inMemoryTaskStore) GetAllTasks(filterPriority string, sortOrder string)
 		sort.Slice(allTasks, func(i, j int) bool {
 			return priorityValues[allTasks[i].Priority] < priorityValues[allTasks[j].Priority]
 		})
+	} else{
+		// Sort in order of ration . before that whenever added reoordinated
+		sort.Slice(allTasks, func(i, j int) bool {
+            return allTasks[i].CreatedAt.Before(allTasks[j].CreatedAt)
+        })
 	}
 
 	return allTasks , nil;

@@ -23,7 +23,7 @@ function TaskCollumn({title , tasks , onOpenModal , onDeleteTask}) {
         </div >
           {/* Left side of header */}
         <div className="collumn-buttons">
-          <button className="collumn-btn" onClick={() => onOpenModal()} > <TiPlus /></button> {/*Now open the pop up */}
+          <button className="collumn-btn" onClick={() => onOpenModal(null, title)} > <TiPlus /></button> {/*Now open the pop up */}
            <button className="collumn-btn"><BsThreeDotsVertical /></button>
         </div>
         </div>
@@ -51,9 +51,7 @@ function TaskCollumn({title , tasks , onOpenModal , onDeleteTask}) {
           )}
         </Droppable>
 
-    <button className="add-task-btn">
-              <TiPlus /> New
-            </button>
+
       </div>
     )
 }

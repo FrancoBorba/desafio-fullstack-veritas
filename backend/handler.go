@@ -50,7 +50,7 @@ func (h *TaskHandler) CreateTask( w http.ResponseWriter , r *http.Request){
 		return
 	}
 
-	task , erro := h.store.CreateTask(payload.Title, payload.Description, payload.Priority)
+	task , erro := h.store.CreateTask(payload.Title, payload.Description, payload.Priority , payload.Status)
 	if erro != nil {
 		writeJSON(w, http.StatusInternalServerError, map[string]string{"erro": "Fail in create task"})
 		return

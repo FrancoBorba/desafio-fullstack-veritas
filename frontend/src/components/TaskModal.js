@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080';
 
-function TaskModal({isOpen , onClose, onTaskCreated, onTaskUpdated, taskToEdit}){
+function TaskModal({isOpen , onClose, onTaskCreated, onTaskUpdated, taskToEdit , modalCreateStatus}){
 
   // Formulario
   const [title, setTitle] = useState('');
@@ -51,7 +51,8 @@ const handleSubmit = (e) => {
     const taskPayload = {
       title: title,
       description: description,
-      priority: priority
+      priority: priority,
+      status: modalCreateStatus
     };
 
     setError(null); 

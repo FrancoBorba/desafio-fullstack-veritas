@@ -26,4 +26,5 @@ type CreateTaskPayload struct {
 	Title       string `json:"title" validate:"required,min=3"`
 	Description string `json:"description,omitempty"`
 	Priority  	string `json:"priority,omitempty" validate:"omitempty,oneof='Alta' 'Média' 'Baixa'"`
+	Status      string `json:"status,omitempty" validate:"omitempty,oneof='A Fazer' 'Em Progresso' 'Concluídas'"`
 }
