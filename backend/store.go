@@ -6,13 +6,14 @@ import(
 	"sync" 
 	"time" 
 	"github.com/google/uuid" // Generate unique id
+	"sort"
 )
 
 // ----- Create the interface ------
 type TaskStore interface{
 	CreateTask(title string , description string , priority string) (*Task , error);
 	GetTask(id string) (*Task , error);
-	GetAllTasks() ([]*Task ,error);
+	GetAllTasks(filterPriority string, sortOrder string) ([]*Task ,error);
 	UpdateTask(id string , payload  UpdateTaskPayload) (*Task , error);
 	DeleteTask(id string )( error);
 }
@@ -64,7 +65,7 @@ func (s *inMemoryTaskStore) CreateTask(title string, description string, priorit
 	return newTask , nil;
 }
 
-func (s *inMemoryTaskStore) GetAllTasks() ([]*Task, error){
+func (s *inMemoryTaskStore) GetAllTasks(filterPriority string, sortOrder string) ([]*Task, error){
 
 	// Read lock
 	s.mutex.RLock();
@@ -76,6 +77,32 @@ func (s *inMemoryTaskStore) GetAllTasks() ([]*Task, error){
 	// turns the map into a list
 	for _, task := range s.tasks {
 		allTasks = append(allTasks, task);
+	}
+
+	// Apply filter
+	if filterPriority != ""{
+		filteredTasks := make([]*Task , 0)
+		for _ , task := range allTasks {
+			if task.Priority == filterPriority {
+				filteredTasks = append(filteredTasks, task)
+			}
+		}
+		allTasks = filteredTasks; // Replaces the complete list with the filtered list
+	}
+
+	// Set the "Values" for ordenation
+	priorityValues := map[string]int{"Alta": 3, "Média": 2, "Baixa": 1}
+
+	if sortOrder == "priority_desc" {
+		sort.Slice(allTasks, func(i, j int) bool {
+			// Decreasing ordination
+			return priorityValues[allTasks[i].Priority] > priorityValues[allTasks[j].Priority]
+		})
+	} else if sortOrder == "priority_asc" {
+		//Growing Ordination:
+		sort.Slice(allTasks, func(i, j int) bool {
+			return priorityValues[allTasks[i].Priority] < priorityValues[allTasks[j].Priority]
+		})
 	}
 
 	return allTasks , nil;
