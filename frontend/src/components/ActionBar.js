@@ -17,7 +17,7 @@ function ActionBar({ onOpenModal, onFilterChange, onSortChange }) {
       {/* --- Right side: Buttons --- */}
       <div className="action-bar-right">
         <button className="action-btn-primary" >
-          <FaPlus /> New Board
+          <FaPlus /> Novo quadro
         </button>
         
         <button className="action-btn-text">
