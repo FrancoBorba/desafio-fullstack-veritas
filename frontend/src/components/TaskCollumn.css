@@ -112,3 +112,7 @@
 .task-collumn[data-status="Concluídas"] .add-task-btn:hover {
   color: #00E096; 
 }
+
+.task-list.dragging-over {
+  background-color: #E6F7FF;
+}

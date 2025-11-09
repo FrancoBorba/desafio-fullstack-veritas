@@ -1,14 +1,25 @@
 import React from "react";
 import './TaskCard.css'; 
 import { FaUsers, FaRegCommentDots, FaPencilAlt, FaTrash } from 'react-icons/fa';
+import { Draggable } from '@hello-pangea/dnd';
 
-function TaskCard({ task, onOpenModal, onDeleteTask }){
+function TaskCard({ task, onOpenModal, onDeleteTask , index }){
     
 const prioridadeClass = task.priority ? task.priority.toLowerCase() : '';
 
 return (
-    <div className="task-card">
-      
+
+  <Draggable draggableId={task.id} index={index}>
+  {(provided, snapshot) => (
+
+        <div 
+          className={`task-card ${snapshot.isDragging ? 'dragging' : ''}`}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps} 
+          ref={provided.innerRef} 
+        >
+
+
       {/* ---  THE PRIORITY TAG --- */}
       {task.priority && (
         <div className="card-header">
@@ -49,6 +60,8 @@ return (
       </div>
 
     </div>
+    )}
+    </Draggable>
   );
 }
 

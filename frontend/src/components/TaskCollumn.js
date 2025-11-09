@@ -2,6 +2,7 @@ import React from 'react';
 import TaskCard from './TaskCard'; 
 import './TaskCollumn.css';
 import Modal from 'react-modal';
+import { Droppable } from '@hello-pangea/dnd';
 
 
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -29,16 +30,26 @@ function TaskCollumn({title , tasks , onOpenModal , onDeleteTask}) {
       
   
 
-      {/* Transforms a list of data into a list of components */}
-      <div className="task-list">
-      {tasks.map(task => (
-        <TaskCard
-         key={task.id} 
-         task={task}
-         onOpenModal={onOpenModal} 
-         onDeleteTask={onDeleteTask} />
-      ))}
-    </div>
+   <Droppable droppableId={title}>
+          {(provided, snapshot) => (      
+          <div 
+              className={`task-list ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
+              {...provided.droppableProps}
+              ref={provided.innerRef} 
+            >
+              {tasks.map((task, index) => (
+                <TaskCard 
+                  key={task.id} 
+                  task={task}
+                  index={index} 
+                  onOpenModal={onOpenModal} 
+                  onDeleteTask={onDeleteTask}
+                />
+              ))}
+              {provided.placeholder} 
+            </div>
+          )}
+        </Droppable>
 
     <button className="add-task-btn">
               <TiPlus /> New

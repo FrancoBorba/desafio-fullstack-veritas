@@ -7,6 +7,7 @@ import TaskCollumn from './components/TaskCollumn';
 import Navbar from './components/Navbar'; 
 import ActionBar from './components/ActionBar';
 import TaskModal from './components/TaskModal'; 
+import { DragDropContext } from '@hello-pangea/dnd'; 
 
 
 
@@ -100,23 +101,66 @@ function App() {
     }
 
     //If there is no loading or error, renders the board
-    return (
-      <main className="kanban-board">
-        {columnTitles.map(title => {
-          const tasksForColumn = tasks.filter(task => task.status === title);
-          return (
-            <TaskCollumn
-              key={title}
-              title={title}
-              tasks={tasksForColumn}
-              onOpenModal={handleOpenModal}
-              onDeleteTask={handleDeleteTask}
-            />
-          );
-        })}
-      </main>
+ return (
+      // ---  Put it in the context of Drag and Drop ---
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <main className="kanban-board">
+          {columnTitles.map(title => {
+            const tasksForColumn = tasks.filter(task => task.status === title);
+            return (
+              <TaskCollumn
+                key={title}
+                title={title}     
+                tasks={tasksForColumn}
+                onOpenModal={handleOpenModal}
+                onDeleteTask={handleDeleteTask}
+              />
+            );
+          })}
+        </main>
+      </DragDropContext>
     );
   };
+
+  const handleOnDragEnd = (result) =>{
+    const {source , destination , draggableId} = result;
+
+    //If you dont have a target, it returns
+    if(!destination){
+      return
+    }
+
+
+    const task = tasks.find(t => t.id === draggableId);
+    const newStatus = destination.droppableId;
+
+    if (task.status !== newStatus) {
+      
+      const updatePayload = {
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        status: newStatus 
+      };
+
+ 
+      const updatedTasks = tasks.map(t => 
+        t.id === draggableId ? { ...t, status: newStatus } : t
+      );
+      setTasks(updatedTasks); 
+
+      // Chamada de API
+      axios.put(`${API_URL}/tasks/${draggableId}`, updatePayload)
+        .then(response => {
+          handleTaskUpdated(response.data);
+        })
+        .catch(err => {
+          console.error("Erro ao atualizar status:", err);
+          setTasks(tasks); // Reverte a mudança
+        });
+    }
+  }
+
 
   return (
     <div className="App">

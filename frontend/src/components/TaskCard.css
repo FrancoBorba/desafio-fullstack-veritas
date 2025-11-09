@@ -115,3 +115,10 @@
 .card-icon-btn.delete-btn:hover {
   color: #E53E3E; 
 }
+
+
+
+.task-card.dragging {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transform: rotate(3deg); 
+}
