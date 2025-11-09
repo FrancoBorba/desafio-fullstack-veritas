@@ -20,7 +20,9 @@ return (
 
       {/*  TITLE AND DESCRIPTION */}
       <div className="card-body">
-        <h4>{task.title}</h4>
+        <h4 className="card-title-clickable" 
+          onClick={() => onOpenModal(task)}
+         >{task.title}</h4>
         <p>{task.description}</p>
       </div>
 
