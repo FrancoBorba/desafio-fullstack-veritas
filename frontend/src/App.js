@@ -36,6 +36,10 @@ function App() {
 
   const [modalCreateStatus, setModalCreateStatus] = useState('A Fazer');
 
+  // Allow user to change project name
+  const [projectName, setProjectName] = useState("Entrar na veritas");
+  const [isEditingName, setIsEditingName] = useState(false);
+
   // Opened
   const handleOpenModal = (task = null , status = 'A Fazer') => {
     setTaskToEdit(task); 
@@ -204,7 +208,12 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar /> 
+      <Navbar 
+        projectName={projectName}
+        setProjectName={setProjectName}
+        isEditingName={isEditingName}
+        setIsEditingName={setIsEditingName}
+      /> 
       <ActionBar onOpenModal={handleOpenModal}
       onFilterChange={setFilterPriority} 
         onSortChange={setSortOrder}

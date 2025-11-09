@@ -4,7 +4,12 @@ import './Navbar.css';
 import logo from '../assets/LogoVeritas.png';
 import { FaInfoCircle, FaRegBell, FaUserCircle } from 'react-icons/fa';
 
-function Navbar() {
+function Navbar({ projectName, setProjectName, isEditingName, setIsEditingName }) {
+
+  const handleNameEdit = () => {
+      setIsEditingName(false);
+    };
+
  return (
     <header className="navbar-container">
       
@@ -22,7 +27,26 @@ function Navbar() {
         <span className="navbar-divider-arrow">&gt;</span>
 
         {/* --- Project name --- */}
-        <span className="navbar-project-name">Nome do Projeto</span>
+        {isEditingName ? (
+          // If was  edditing show the input
+          <input
+            type="text"
+            className="navbar-project-name-input" 
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleNameEdit()} // Save with enter
+            onBlur={handleNameEdit} 
+            autoFocus 
+          />
+        ) : (
+          // Is was not edditing show the span
+          <span 
+            className="navbar-project-name"
+            onClick={() => setIsEditingName(true)} // Entra no modo de edição
+          >
+            {projectName}
+          </span>
+        )}
       </div>
 
       <div className="navbar-center">

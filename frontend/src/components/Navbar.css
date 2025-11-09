@@ -47,7 +47,28 @@
   color: #FFFFFF;
   opacity: 0.8; 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  padding: 5px 8px; 
+  border-radius: 6px;
+  transition: background-color 0.2s;
 } 
+
+.navbar-project-name:hover {
+  background-color:  #d4af78bb;
+  opacity: 1;
+}
+
+.navbar-project-name-input {
+  font-size: 20px;
+  color: #FFFFFF;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  background-color: #02141B;  
+  border: 1px solid #02141b5e;
+  border-radius: 6px;
+  padding: 5px 8px;
+  outline: none;
+}
 
 /* --- Center --- */
 .navbar-center {
@@ -118,3 +139,4 @@
   font-size: 30px;
   color: #DEC9AA; 
 }
+
