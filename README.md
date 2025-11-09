@@ -19,16 +19,21 @@ Este método é o mais simples, pois o `docker-compose` gerencia o backend, o fr
 * **Docker Desktop:** [Instruções de instalação](https://docs.docker.com/desktop/)
 
 **Passos:**
-1.  Clone este repositório:
+1.  Abra o cmd do seu computador no local que deseja clonar
+
+2.  Clone este repositório:
     ```bash
-    git clone [https://github.com/seu-usuario/desafio-fullstack-veritas.git](https://github.com/seu-usuario/desafio-fullstack-veritas.git)
+    # Insira esses comandos:
+    git clone https://github.com/FrancoBorba/desafio-fullstack-veritas.git
+    # Entre na raiz do projeto
     cd desafio-fullstack-veritas
     ```
-2.  Suba os containers (o `--build` garante que tudo será construído do zero):
+3.  Suba os containers (o `--build` garante que tudo será construído do zero):
     ```bash
+    # Rode este comando na raiz do projeto
     docker-compose up --build
     ```
-3.  Acesse os serviços:
+4.  Acesse os serviços:
     * **Frontend (React):** `http://localhost:3000`
     * **Backend (Go API):** `http://localhost:8080`
     * **Documentação (Swagger):** `http://localhost:8080/swagger/index.html`
@@ -48,7 +53,7 @@ Se você preferir rodar os serviços manualmente na sua máquina.
     ```
 
 **Passos para o Backend (Go):**
-    ```bash
+```bash
     # 1. Navegue até a pasta do backend
     cd backend
 
