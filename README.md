@@ -76,6 +76,18 @@ Este método é o mais simples e recomendado. Ele não exige a instalação do G
 
 **Nota sobre Ambientes:** O ecossistema Go é primariamente desenvolvido e testado em ambientes Linux. Para usuários de Windows, é **altamente recomendado** usar o **WSL (Windows Subsystem for Linux)** para garantir 100% de compatibilidade e performance.
 
+1.  **Clone o Repositório**
+    Abra seu terminal e clone o projeto:
+    ```bash
+    git clone https://github.com/FrancoBorba/desafio-fullstack-veritas.git
+    ```
+
+2.  **Navegue até a Raiz do Projeto**
+    ```bash
+    cd desafio-fullstack-veritas
+    ```
+
+
 ### A. Backend (Go)
 
 **1. Instalação (Linux / WSL - Ubuntu)**
