@@ -72,6 +72,7 @@ function App() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setTaskToEdit(null); 
+    setModalCreateStatus('A Fazer');
   };
 
   // Open Modal to a post
@@ -124,14 +125,13 @@ function App() {
     }
     const queryString = params.toString();
 
-      // call the endpoint getAllTasks
-      axios.get(`${API_URL}/tasks?${queryString}`)
-      .then(response => {
-        setTasks(response.data || []); 
-        setError(null);
-      })
+    const response = await axios.get(`${API_URL}/tasks?${queryString}`)
+
+    setTasks(response.data || []); 
+    setError(null);
+
+    
       }catch (err) {
-        console.error("Erro ao buscar tarefas:", err);
         setError("Não foi possível carregar as tarefas."); 
       } finally {
         setLoading(false); 

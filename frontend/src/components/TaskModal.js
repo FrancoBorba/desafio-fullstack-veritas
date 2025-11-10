@@ -47,18 +47,20 @@ const handleSubmit = (e) => {
     return;
   }
 
-    // Body
-    const taskPayload = {
-      title: title,
-      description: description,
-      priority: priority,
-      status: modalCreateStatus
-    };
 
+  
     setError(null); 
     
     if (taskToEdit) {
       // ---  PUT ---
+
+        const taskPayload = {
+      title: title,
+      description: description,
+      priority: priority,
+      status: taskToEdit.status
+    };
+
       axios.put(`${API_URL}/tasks/${taskToEdit.id}`, taskPayload)
         .then(response => {
           onTaskUpdated(response.data);
@@ -71,6 +73,15 @@ const handleSubmit = (e) => {
 
     } else {
       // --- POST ---
+
+       const taskPayload = {
+      title: title,
+      description: description,
+      priority: priority,
+      status: modalCreateStatus
+    };
+
+
       axios.post(`${API_URL}/tasks`, taskPayload)
         .then(response => {
           onTaskCreated(response.data); 

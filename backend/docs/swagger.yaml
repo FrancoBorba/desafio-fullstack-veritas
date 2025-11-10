@@ -9,6 +9,12 @@ definitions:
         - Média
         - Baixa
         type: string
+      status:
+        enum:
+        - A Fazer
+        - Em Progresso
+        - Concluídas
+        type: string
       title:
         minLength: 3
         type: string
@@ -76,6 +82,19 @@ paths:
   /tasks:
     get:
       description: Retorna uma lista de todas as tarefas do kanban
+      parameters:
+      - description: Filtrar por prioridade (Alta, Média, Baixa)
+        in: query
+        name: priority
+        type: string
+      - description: Ordenar por prioridade (priority_asc, priority_desc)
+        in: query
+        name: sort
+        type: string
+      - description: Buscar por parte do título (case-insensitive)
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:

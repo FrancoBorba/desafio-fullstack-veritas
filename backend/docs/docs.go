@@ -26,6 +26,26 @@ const docTemplate = `{
                     "tasks"
                 ],
                 "summary": "Lista todas as tarefas",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filtrar por prioridade (Alta, Média, Baixa)",
+                        "name": "priority",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Ordenar por prioridade (priority_asc, priority_desc)",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Buscar por parte do título (case-insensitive)",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -261,6 +281,14 @@ const docTemplate = `{
                         "Alta",
                         "Média",
                         "Baixa"
+                    ]
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "A Fazer",
+                        "Em Progresso",
+                        "Concluídas"
                     ]
                 },
                 "title": {
