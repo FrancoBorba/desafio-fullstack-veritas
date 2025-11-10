@@ -23,14 +23,14 @@ Este método é o mais simples, pois o `docker-compose` gerencia o backend, o fr
 
 2.  Clone este repositório:
     ```bash
-    # Insira esses comandos:
+    # Insira o comando para clonar:
     git clone https://github.com/FrancoBorba/desafio-fullstack-veritas.git
-    # Entre na raiz do projeto
+    # Entre na raiz do projeto:
     cd desafio-fullstack-veritas
     ```
 3.  Suba os containers (o `--build` garante que tudo será construído do zero):
     ```bash
-    # Rode este comando na raiz do projeto
+    # Rode este comando na raiz do projeto:
     docker-compose up --build
     ```
 4.  Acesse os serviços:

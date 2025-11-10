@@ -63,6 +63,10 @@ func (h *TaskHandler) CreateTask( w http.ResponseWriter , r *http.Request){
 // @Description  Retorna uma lista de todas as tarefas do kanban
 // @Tags         tasks
 // @Produce      json
+
+// @Param        priority query     string  false  "Filtrar por prioridade (Alta, Média, Baixa)"
+// @Param        sort     query     string  false  "Ordenar por prioridade (priority_asc, priority_desc)"
+// @Param        search   query     string  false  "Buscar por parte do título (case-insensitive)"
 // @Success      200  {array}   Task
 // @Failure      500  {object}  map[string]string
 // @Router       /tasks [get]
