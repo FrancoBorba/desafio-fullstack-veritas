@@ -37,6 +37,7 @@ Este método é o mais simples e recomendado. Ele não exige a instalação do G
 #### Passos para Rodar
 
 1.  **Clone o Repositório**
+
     Abra seu terminal e clone o projeto:
     ```bash
     git clone https://github.com/FrancoBorba/desafio-fullstack-veritas.git
@@ -77,6 +78,7 @@ Este método é o mais simples e recomendado. Ele não exige a instalação do G
 **Nota sobre Ambientes:** O ecossistema Go é primariamente desenvolvido e testado em ambientes Linux. Para usuários de Windows, é **altamente recomendado** usar o **WSL (Windows Subsystem for Linux)** para garantir 100% de compatibilidade e performance.
 
 1.  **Clone o Repositório**
+
     Abra seu terminal e clone o projeto:
     ```bash
     git clone https://github.com/FrancoBorba/desafio-fullstack-veritas.git
@@ -102,15 +104,34 @@ Este método é o mais simples e recomendado. Ele não exige a instalação do G
 ```
 
 **1. Instalação (Windows)**
+
 Link do instalador: [Instalador GO Oficial](https://go.dev/doc/install)
 
 **2. Instalação (Swagger CLI)**
-    Para gerar a documentação, rode este comando em qualquer terminal:
+
+Para gerar a documentação, rode este comando em qualquer terminal:
+
 ```bash
    go install github.com/swaggo/swag/cmd/swag@latest
 ```
 
-(Nota: Se o comando swag não for encontrado, adicione o GOPATH ao seu PATH do terminal. Ex: export PATH=$PATH:$(go env GOPATH)/bin)
+⚠️ Nota Importante: Se você receber o erro "swag: command not found"
+
+Isso é comum e significa que seu terminal não sabe onde o Go instalou o programa.
+
+**Como corrigir (Linux / macOS / WSL):**
+
+**Execute este comando UMA VEZ para adicionar o Go à "lista de atalhos" (PATH) do seu terminal:**
+```bash
+    #(Se você usa Zsh (comum no macOS), troque ~/.bashrc por ~/.zshrc)
+    echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc
+   
+    #Atualize seu terminal (execute este comando ou simplesmente feche e reabra o terminal):
+    source ~/.bashrc
+
+    #Verifique se funcionou:
+    swag --version
+```
 
 **3. Rodando o Backend**
 ```bash
@@ -133,7 +154,7 @@ Link do instalador: [Instalador GO Oficial](https://go.dev/doc/install)
 
 ### B. Frontend(React)
 
-**1. Instalação (Linux / WSL - Recomendado) Recomendamos usar o nvm (Node Version Manager) para gerenciar as versões do Node.**
+**1. Instalação (Linux / WSL) - Recomendado  usar o nvm (Node Version Manager) para gerenciar as versões do Node.**
 
 ### Instala o NVM
 ```bash
@@ -146,11 +167,13 @@ Link do instalador: [Instalador GO Oficial](https://go.dev/doc/install)
 
 ```
 
-**1. Instalação (Windows) Link do instalador: [Instalador Node.js (LTS) Oficial:](https://nodejs.org/en/download)**
+**1. Instalação (Windows):** 
+
+Link do instalador: [Instalador Node.js (LTS) Oficial:](https://nodejs.org/en/download)
 
 
 
-**2. Rodando o Frontend Abra um segundo terminal (deixe o backend rodando no primeiro).**
+**2. Rodando o Frontend: abra um segundo terminal (deixe o backend rodando no primeiro).**
 
 ```bash
     # 1. Navegue até a pasta do frontend
@@ -163,6 +186,7 @@ Link do instalador: [Instalador GO Oficial](https://go.dev/doc/install)
     npm start
 
 ```
+✅ **Sucesso:** O seu navegador abrirá automaticamente em `http://localhost:3000`.
 
 ---
 
@@ -193,7 +217,7 @@ Este projeto foi construído com foco em boas práticas de arquitetura, escalabi
 
 * **Armazenamento Volátil:** O backend usa armazenamento em memória, como pedido no escopo. Todas as tarefas são perdidas quando o container do Docker é reiniciado.
 * **Sem Autenticação:** Não há sistema de usuários. O Kanban é público.
-* **Reordenação Local:** A reordenação de tarefas *dentro* da mesma coluna (via Drag and Drop) é apenas visual (otimista) e não é persistida no backend. A ordem é "resetada" pela ordenação do backend (ex: por data ou prioridade) ao recarregar a página.
+* **Reordenação Local:** A reordenação de tarefas *dentro* da mesma coluna (via Drag and Drop) é apenas visual  e não é persistida no backend. A ordem é "resetada" pela ordenação do backend (ex: por data ou prioridade) ao recarregar a página.
 
 ---
 
@@ -201,6 +225,7 @@ Este projeto foi construído com foco em boas práticas de arquitetura, escalabi
 
 O design da aplicação foi intencionalmente inspirado em aplicações mais robustas, pensando em acomodar melhorias futuras:
 
+* **Modal de Visualização Dedicado:** Atualmente, para ver a descrição completa, o usuário clica no título da tarefa, o que abre o modal de *edição*. Uma melhoria futura seria criar um modal separado de *apenas leitura* (visualização) que mostre todas as informações complexas do card (como logs, comentários, datas) sem o risco de edições acidentais.
 * **Atribuir Usuários:** Implementar um sistema de autenticação e permitir que tarefas sejam associadas a avatares/usuários específicos (o design do `TaskCard` já prevê isso).
 * **Datas e Prazos:** Implementar a lógica para `DueDate` (prazo), permitindo que o `TaskCard` mostre "12 days" (como no design de inspiração) e o `ActionBar` filtre por "Calendar" ou "Deadlines" (Prazos).
 * **Quadros Múltiplos:** Implementar a funcionalidade `+ Novo Quadro` (do `ActionBar`), transformando o backend para suportar múltiplos quadros, cada um com suas próprias colunas customizáveis (ex: "Backlog", "Revisão", etc.).
