@@ -62,10 +62,7 @@ Este método é o mais simples e recomendado. Ele não exige a instalação do G
         ```
     * **Para desligar:**
         Pressione `Ctrl+C` no terminal, e depois rode:
-        ```bash
-        docker compose down
-        ```
-
+       
 4.  **Acesse a Aplicação**
     Com os containers rodando, acesse os seguintes endereços no seu navegador:
     * **Frontend (Aplicação):** `http://localhost:3000`
@@ -74,8 +71,6 @@ Este método é o mais simples e recomendado. Ele não exige a instalação do G
 
 
 ### Cenário 2: Rodando Manualmente (Modo de Desenvolvimento)
-
-**Nota sobre Ambientes:** O ecossistema Go é primariamente desenvolvido e testado em ambientes Linux. Para usuários de Windows, é **altamente recomendado** usar o **WSL (Windows Subsystem for Linux)** para garantir 100% de compatibilidade e performance.
 
 1.  **Clone o Repositório**
 
@@ -135,7 +130,7 @@ Isso é comum e significa que seu terminal não sabe onde o Go instalou o progra
 
 **3. Rodando o Backend**
 ```bash
-    # 1. Navegue até a pasta do backend
+    # 1.Dentro da raiz do projeto navegue até a pasta do backend
     cd backend
 
     # 2. Baixe as dependências (listadas no go.mod)
@@ -173,10 +168,12 @@ Link do instalador: [Instalador Node.js (LTS) Oficial:](https://nodejs.org/en/do
 
 
 
-**2. Rodando o Frontend: abra um segundo terminal (deixe o backend rodando no primeiro).**
+**2. Rodando o Frontend:**
+
+ Dentro da raiz do projeto abra um segundo terminal (deixe o backend rodando no primeiro).
 
 ```bash
-    # 1. Navegue até a pasta do frontend
+    # 1.Dentro da raiz do projeto navegue até a pasta do frontend
     cd frontend
 
     # 2. Instale as dependências (listadas no package.json)
