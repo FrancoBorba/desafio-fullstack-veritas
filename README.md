@@ -53,7 +53,7 @@ Este método é o mais simples e recomendado. Ele não exige a instalação do G
     * **Na primeira vez (ou se você mudar o código):**
         Use o comando `--build`. Isso força o Docker a reconstruir as "imagens" (os "moldes") do Go e do React do zero.
         ```bash
-        docker-compose up --build
+        docker compose up --build
         ```
     * **Para todas as vezes seguintes:**
         Se você só quer "ligar" os containers que já foram construídos, use:
