@@ -1,15 +1,28 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css'; 
 import logo from '../assets/LogoVeritas.png';
 import { FaInfoCircle, FaRegBell, FaUserCircle } from 'react-icons/fa';
 
-function Navbar({ projectName, setProjectName, isEditingName, setIsEditingName }) {
+function Navbar({ projectName, setProjectName, isEditingName, setIsEditingName ,defaultProjectName  }) {
+
+const [localName, setLocalName] = useState(projectName);
+
+  useEffect(() => {
+    if (isEditingName) {
+      setLocalName(projectName);
+    }
+  }, [isEditingName, projectName]);
 
   const handleNameEdit = () => {
-      setIsEditingName(false);
-    };
-
+    if (localName.trim() !== "") {
+      setProjectName(localName);
+    } else {
+      setProjectName(defaultProjectName);
+    }
+    
+    setIsEditingName(false);
+  };
  return (
     <header className="navbar-container">
       
@@ -32,8 +45,8 @@ function Navbar({ projectName, setProjectName, isEditingName, setIsEditingName }
           <input
             type="text"
             className="navbar-project-name-input" 
-            value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
+            value={localName}
+            onChange={(e) => setLocalName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleNameEdit()} // Save with enter
             onBlur={handleNameEdit} 
             autoFocus 
@@ -42,7 +55,7 @@ function Navbar({ projectName, setProjectName, isEditingName, setIsEditingName }
           // Is was not edditing show the span
           <span 
             className="navbar-project-name"
-            onClick={() => setIsEditingName(true)} // Entra no modo de edição
+            onClick={() => setIsEditingName(true)} 
           >
             {projectName}
           </span>

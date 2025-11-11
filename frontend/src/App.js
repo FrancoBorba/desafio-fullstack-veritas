@@ -15,6 +15,7 @@ import { DragDropContext } from '@hello-pangea/dnd';
 const columnTitles = ['A Fazer', 'Em Progresso', 'Concluídas']; 
 
 const API_URL = 'http://localhost:8080';
+const DEFAULT_PROJECT_NAME = "Entrar na veritas";
 
 function App() {
 
@@ -37,7 +38,8 @@ function App() {
   const [modalCreateStatus, setModalCreateStatus] = useState('A Fazer');
 
   // Allow user to change project name
-  const [projectName, setProjectName] = useState("Entrar na veritas");
+
+  const [projectName, setProjectName] = useState(DEFAULT_PROJECT_NAME);
   const [isEditingName, setIsEditingName] = useState(false);
 
   // 'searchTerm' what the user is Typing now
@@ -235,6 +237,7 @@ function App() {
         setProjectName={setProjectName}
         isEditingName={isEditingName}
         setIsEditingName={setIsEditingName}
+        defaultProjectName={DEFAULT_PROJECT_NAME}
       /> 
       <ActionBar onOpenModal={handleOpenModal}
       onFilterChange={setFilterPriority} 

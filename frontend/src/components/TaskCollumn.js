@@ -24,7 +24,7 @@ function TaskCollumn({title , tasks , onOpenModal , onDeleteTask}) {
           {/* Left side of header */}
         <div className="collumn-buttons">
           <button className="collumn-btn" onClick={() => onOpenModal(null, title)} > <TiPlus /></button> {/*Now open the pop up */}
-           <button className="collumn-btn"><BsThreeDotsVertical /></button>
+           <button className="collumn-btn btn-options"><BsThreeDotsVertical /></button>
         </div>
         </div>
       

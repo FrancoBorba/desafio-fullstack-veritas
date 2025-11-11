@@ -75,6 +75,15 @@
   opacity: 1;
 }
 
+.collumn-btn.btn-options {
+  cursor: default;
+  opacity: 0.7; 
+}
+
+.collumn-btn.btn-options:hover {
+  opacity: 0.7;
+}
+
 .task-list {
   flex-grow: 1; 
   overflow-y: auto; 
